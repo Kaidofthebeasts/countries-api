@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>countries</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    
+    <div class="container">
+      <div class="row"  id="appendData">
+        
+        </div>
+      </div>
+    </div>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"
+  ></script>
+  <script>
+    const getData = () => {
+        fetch("https://restcountries.com/v2/all")
+          .then((res) => {
+            let data = res.json();
+            return data;
+          })
+          .then((data) => {
+            data.forEach((value, index, arr1) => {
+              console.log(value);
+
+            
+
+              let wrapper = document.createElement("div");
+
+              wrapper.className = " col-8 m-3 ";
+              wrapper.style.width = "25rem"; 
+
+              let flagPic = document.createElement("img");
+              flagPic.className="card-img-top  pt-5";
+              flagPic.src=value.flag;
+              // flagPic.style.width="300px"
+              
+              flagPic.setAttribute("data-bs-toggle","collapse");
+              flagPic.setAttribute("data-bs-target","#collapseWidthExample"+index);
+              flagPic.setAttribute("aria-expanded","false")  ;
+              flagPic.setAttribute("aria-controls","collapseWidthExample"+index) ;
+              
+                
+          
+              
+            
+              
+
+
+              
+              
+              
+              wrapper.appendChild(flagPic);
+              
+              document.getElementById("appendData").appendChild(wrapper);
+              
+            
+              // let secondCol= document.createElement("div")
+              // secondCol.className="col-4";
+              // secondCol.id="appendData2"
+              // document.getElementById("appendData").appendChild(secondCol)
+              
+              let flagPic2 = document.createElement("img");
+              flagPic2.className="card-img-top  pt-5";
+              flagPic2.src=value.flag;
+              // flagPic2.style.width="250px"
+            let cardBody2=document.createElement("div");
+                cardBody2.className="card card-body";
+                cardBody2.style.width="200px"
+                let wrapper2=document.createElement("div");
+                wrapper2.style.minHeight ="120px";
+                wrapper2.className="col-3 mt-3"
+                let hiddenDiv=document.createElement("div");
+                hiddenDiv.className="collapse collapse-horizontal";
+                hiddenDiv.id="collapseWidthExample"+index;
+                cardBody2.textContent=`
+                Country: ${value.name}
+                Population: ${value.population}
+                Area: ${value.area}
+                Alpha2Code: ${value.alpha2Code}
+                Calling Code: ${value.callingCodes}
+                Capital: ${value.capital}
+                Subregion: ${value.subregion}
+                topLevelDomain: ${value.topLevelDomain}
+                alpha3Code: ${value.alpha3Code}
+                altSpellings: ${value.altSpellings}
+                region: ${value.region}
+                latlng: ${value.latlng}
+`;;
+cardBody2.appendChild(flagPic2)
+hiddenDiv.appendChild(cardBody2);
+wrapper2.appendChild(hiddenDiv);
+                document.getElementById("appendData").appendChild(wrapper2)
+
+            });
+          });
+      };
+
+      getData();
+
+        </script>
+  </script>
+</html>
